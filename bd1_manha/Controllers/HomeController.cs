@@ -8,7 +8,7 @@ using PagedList;
 
 namespace bd1_manha.Controllers
 {
-    //FALTA PAGINAÇÃO NO PROGRAMA. feito
+    //FALTA PAGINAÇÃO NO PROGRAMA. feitos
     //TPC: resolver no edit a datanasc fazendo so com que apareça dia mes e ano(sem hora nem minutos nem segundos)
     //TPC:resolver o que fizemos na media para o campo CREATE tambem (resolvemos no database e no edit.cshtml). penso que feito
 
