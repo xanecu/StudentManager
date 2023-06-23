@@ -1,0 +1,100 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<bd1_manha.Models.aluno>
+
+@{
+    ViewBag.Title = "Alunos";
+}
+
+<h2>Alunos</h2>
+<h3 id="tit" style="color:red;" >@ViewBag.msg</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" >
+    <tr>
+        <th>
+            num
+        </th>
+        <th>
+            naluno
+        </th>
+        <th>
+            codcurso
+        </th>
+        <th>
+            datanasc
+        </th>
+        <th>
+            idade
+        </th>
+        <th>
+            media
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.naluno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.codcurso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.datanasc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.media)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.num  }) |
+            @Html.ActionLink("Details", "Details", new { id=item.num }) |
+            @Html.ActionLink("Delete", null, null, new { id=item.num, name="lnkdel"})
+        </td>
+    </tr>
+}
+
+</table>
+@section edita{
+    <script>
+        $(function () {
+            $("[name='lnkdel']").click((evt) => {
+                evt = evt ? evt : window.event;
+                evt.preventDefault();
+                //alert(evt.target.id);
+                let ok = confirm("Quer mesmo apagar?"); //estas duas linhas perguntam se quer mesmo apagar o usuário
+                if (!ok) return false;
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { id: evt.target.id },
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                        $("#tit").html(data.msg);
+                        $(evt.target).closest("tr").remove();
+
+
+                    },
+                    error: function () {
+                        alerta("Erro ajax");
+                    }
+
+                });
+            });
+        });
+    </script>
+    
+    }
+
+Página   @((Model.PageNumber > Model.PageCount)?0:Model.PageNumber)
+        de @Model.PageCount
+@Html.PagedListPager(Model,page=>Url.Action("Alunos", new { page}))

@@ -1,0 +1,66 @@
+﻿@model bd1_manha.Models.aluno
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>aluno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.naluno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naluno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.codcurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codcurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datanasc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datanasc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.media)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.media)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "Alunos")
+</p>

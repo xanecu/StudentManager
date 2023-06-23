@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bd_TB_manhaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="alunos">
+          <Key>
+            <PropertyRef Name="num" />
+          </Key>
+          <Property Name="num" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naluno" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="codcurso" Type="char" MaxLength="8" />
+          <Property Name="datanasc" Type="date" />
+          <Property Name="idade" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="media" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="cursos">
+          <Key>
+            <PropertyRef Name="codcurso" />
+          </Key>
+          <Property Name="codcurso" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="curso" Type="varchar" MaxLength="120" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__alunos__codcurso__25869641">
+          <End Role="cursos" Type="Self.cursos" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="alunos" Type="Self.alunos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cursos">
+              <PropertyRef Name="codcurso" />
+            </Principal>
+            <Dependent Role="alunos">
+              <PropertyRef Name="codcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_TB_manhaModelStoreContainer">
+          <EntitySet Name="alunos" EntityType="Self.alunos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cursos" EntityType="Self.cursos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__alunos__codcurso__25869641" Association="Self.FK__alunos__codcurso__25869641">
+            <End Role="cursos" EntitySet="cursos" />
+            <End Role="alunos" EntitySet="alunos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_TB_manhaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="aluno">
+          <Key>
+            <PropertyRef Name="num" />
+          </Key>
+          <Property Name="num" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naluno" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codcurso" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="datanasc" Type="DateTime" Precision="0" />
+          <Property Name="idade" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="media" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="curso" Relationship="Self.FK__alunos__codcurso__25869641" FromRole="alunos" ToRole="cursos" />
+        </EntityType>
+        <EntityType Name="curso">
+          <Key>
+            <PropertyRef Name="codcurso" />
+          </Key>
+          <Property Name="codcurso" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="curso1" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="alunos" Relationship="Self.FK__alunos__codcurso__25869641" FromRole="cursos" ToRole="alunos" />
+        </EntityType>
+        <Association Name="FK__alunos__codcurso__25869641">
+          <End Role="cursos" Type="Self.curso" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="alunos" Type="Self.aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cursos">
+              <PropertyRef Name="codcurso" />
+            </Principal>
+            <Dependent Role="alunos">
+              <PropertyRef Name="codcurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_TB_manhaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="alunos" EntityType="Self.aluno" />
+          <EntitySet Name="cursos" EntityType="Self.curso" />
+          <AssociationSet Name="FK__alunos__codcurso__25869641" Association="Self.FK__alunos__codcurso__25869641">
+            <End Role="cursos" EntitySet="cursos" />
+            <End Role="alunos" EntitySet="alunos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bd_TB_manhaModelStoreContainer" CdmEntityContainer="bd_TB_manhaEntities">
+          <EntitySetMapping Name="alunos">
+            <EntityTypeMapping TypeName="bd_TB_manhaModel.aluno">
+              <MappingFragment StoreEntitySet="alunos">
+                <ScalarProperty Name="num" ColumnName="num" />
+                <ScalarProperty Name="naluno" ColumnName="naluno" />
+                <ScalarProperty Name="codcurso" ColumnName="codcurso" />
+                <ScalarProperty Name="datanasc" ColumnName="datanasc" />
+                <ScalarProperty Name="idade" ColumnName="idade" />
+                <ScalarProperty Name="media" ColumnName="media" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cursos">
+            <EntityTypeMapping TypeName="bd_TB_manhaModel.curso">
+              <MappingFragment StoreEntitySet="cursos">
+                <ScalarProperty Name="codcurso" ColumnName="codcurso" />
+                <ScalarProperty Name="curso1" ColumnName="curso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
